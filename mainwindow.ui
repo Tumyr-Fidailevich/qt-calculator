@@ -56,30 +56,21 @@
       <item>
        <layout class="QHBoxLayout" name="input_form_layout">
         <item>
-         <widget class="QLineEdit" name="input">
+         <widget class="QLabel" name="input">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="minimumSize">
-           <size>
-            <width>100</width>
-            <height>100</height>
-           </size>
+          <property name="text">
+           <string>answer</string>
           </property>
-          <property name="baseSize">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
+          <property name="textFormat">
+           <enum>Qt::PlainText</enum>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-          <property name="readOnly">
-           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -193,7 +184,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>×</string>
+           <string>*</string>
           </property>
          </widget>
         </item>
@@ -245,7 +236,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>÷</string>
+           <string>/</string>
           </property>
          </widget>
         </item>

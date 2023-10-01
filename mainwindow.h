@@ -8,6 +8,9 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
+const QString operations = "*/+-";
+const QString numbers = "0123456789";
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -18,11 +21,11 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    bool _evaluated = false;
-    bool _operation = false;
-    bool _dot = false;
-    char _currentSymbol = 0;
+    bool _equationEvaluated = false;
+    bool _isDotPlacebale = true;
     std::string parseInput();
+    void addNumber(char number);
+    void addOperation(char op);
 public slots:
     void add0();
     void add1();
