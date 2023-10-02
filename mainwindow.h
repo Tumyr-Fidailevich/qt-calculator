@@ -2,7 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <string>
+#include <queue>
+#include <QTextStream>
+#include <QMessageBox>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,9 +25,9 @@ private:
     Ui::MainWindow *ui;
     bool _equationEvaluated = false;
     bool _isDotPlacebale = true;
-    std::string parseInput();
-    void addNumber(char number);
-    void addOperation(char op);
+    QString parseInput();
+    void addNumber(QChar number);
+    void addOperation(QChar op);
 public slots:
     void add0();
     void add1();
@@ -42,8 +44,14 @@ public slots:
     void add_multiplication();
     void add_minus();
     void add_plus();
-    void deletion();
+    void deleteElement();
+    void deleteAll();
     void evaluate();
 
 };
+
+bool isOperator(QChar op);
+int getPriority(QChar op);
+void raiseErrorWindow();
+QString getLastTokenStartedFromPos(QString &str, int pos);
 #endif // MAINWINDOW_H

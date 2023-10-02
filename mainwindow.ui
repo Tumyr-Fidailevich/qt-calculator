@@ -64,7 +64,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>answer</string>
+           <string/>
           </property>
           <property name="textFormat">
            <enum>Qt::PlainText</enum>
@@ -75,7 +75,26 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_delete">
+         <widget class="QPushButton" name="pushButton_delete_all">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>100</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>CA</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_delete_element">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -572,10 +591,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_delete</sender>
+   <sender>pushButton_delete_element</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>deletion()</slot>
+   <slot>deleteElement()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>348</x>
@@ -584,6 +603,22 @@
     <hint type="destinationlabel">
      <x>269</x>
      <y>7</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_delete_all</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>deleteAll()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>292</x>
+     <y>66</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>106</x>
+     <y>3</y>
     </hint>
    </hints>
   </connection>
@@ -605,6 +640,7 @@
   <slot>add_plus()</slot>
   <slot>add_dot()</slot>
   <slot>evaluate()</slot>
-  <slot>deletion()</slot>
+  <slot>deleteElement()</slot>
+  <slot>deleteAll()</slot>
  </slots>
 </ui>

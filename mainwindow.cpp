@@ -11,38 +11,79 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::addNumber(char number)
+bool isOperator(QChar op)
 {
-    const QString s{number};
+     return operations.contains(op);
+}
+
+int getPriority(QChar op) {
+    if (op == '+' || op == '-') {
+        return 1;
+    } else if (op == '*' || op == '/') {
+        return 2;
+    }
+    return 0;
+}
+
+QString getLastTokenStartedFromPos(QString &str, int pos)
+{
+    QString token = "";
+    while(pos >= 0 && str[pos].isSpace())
+    {
+        pos--;
+    }
+    while(pos >= 0 && !str[pos].isSpace())
+    {
+        token.prepend(str[pos]);
+        pos--;
+    }
+    return token;
+}
+
+QString MainWindow::parseInput()
+{
+
+    return "";
+}
+
+void raiseErrorWindow()
+{
+    QMessageBox errorBox;
+    errorBox.setIcon(QMessageBox::Critical);
+    errorBox.setWindowTitle("Error");
+    errorBox.setText("Divide by zero exception");
+    errorBox.exec();
+}
+
+void MainWindow::addNumber(QChar number)
+{
     if(_equationEvaluated)
     {
-        ui->input->setText(s);
+        ui->input->setText(number);
     }else
     {
-        ui->input->setText(ui->input->text() + s);
+        ui->input->setText(ui->input->text() + number);
     }
     _equationEvaluated = false;
 }
 
-void MainWindow::addOperation(char op)
+void MainWindow::addOperation(QChar op)
 {
-    if(!ui->input->text().isEmpty())
+    QString updatedInput = ui->input->text();
+    QString token = getLastTokenStartedFromPos(updatedInput, updatedInput.length() - 1);
+    if(!token.isEmpty())
     {
-        if(ui->input->text().endsWith(operations))
+        if(isOperator(token.back()))
         {
-            ui->input->text().back() = op;
+            updatedInput[updatedInput.length() - 2] = op;
         }else
         {
-            ui->input->setText(ui->input->text() + op);
+            updatedInput += ' ' + op + ' ';
         }
+        ui->input->setText(updatedInput);
          _isDotPlacebale = true;
         _equationEvaluated = false;
     }
-}
-
-std::string MainWindow::parseInput()
-{
-    return "";
 }
 
 void MainWindow::add0()
@@ -97,15 +138,15 @@ void MainWindow::add9()
 
 void MainWindow::add_dot()
 {
-    const QString s{'.'};
+    const QString dot{'.'};
     if(_isDotPlacebale)
     {
         if(_equationEvaluated)
         {
-            ui->input->setText(s);
+            ui->input->setText(dot);
         }else
         {
-            ui->input->setText(ui->input->text() + s);
+            ui->input->setText(ui->input->text() + dot);
         }
         _isDotPlacebale = false;
         _equationEvaluated = false;
@@ -132,38 +173,47 @@ void MainWindow::add_plus()
     addOperation('+');
 }
 
-void MainWindow::deletion()
+void MainWindow::deleteElement()
 {
     if(!ui->input->text().isEmpty())
     {
         QString updatedInput = ui->input->text();
-        if(ui->input->text().endsWith(operations))
+        int startedPos = updatedInput.length() - 1;
+        QString token = getLastTokenStartedFromPos(updatedInput, startedPos);
+        if(isOperator(token.back()))
         {
-            int lastOpPos = updatedInput.length() - 1;
-            int secondLastOpPos = 0;
-            _isDotPlacebale = true;
-            for(int i = lastOpPos - 1; !operations.contains(updatedInput[i]) || i >= 0; i--)
-            {
-                if(updatedInput[i] == '.')
-                {
-                    _isDotPlacebale = false;
-                    break;
-                }
-            }
-        }else if(ui->input->text().endsWith('.'))
+            token = getLastTokenStartedFromPos(updatedInput, startedPos - 3);
+            updatedInput.chop(3);
+        }else
         {
-            _isDotPlacebale = true;
+            updatedInput.chop(1);
         }
-        updatedInput.chop(1);
+        _isDotPlacebale = !token.contains('.');
         ui->input->setText(updatedInput);
     }
+    _equationEvaluated = false;
+}
+
+void MainWindow::deleteAll()
+{
+    ui->input->setText("");
+    _isDotPlacebale = true;
+    _equationEvaluated = false;
 }
 
 void MainWindow::evaluate()
 {
     if(!ui->input->text().isEmpty())
     {
-        ui->input->setText(parseInput().c_str());
-        _equationEvaluated = true;
+        try {
+            QString answer = parseInput();
+            _equationEvaluated = true;
+            ui->input->setText(answer);
+            _isDotPlacebale = false;
+        }  catch (std::runtime_error &e) {
+            ui->input->setText("");
+            _isDotPlacebale = true;
+            raiseErrorWindow();
+        }
     }
 }
