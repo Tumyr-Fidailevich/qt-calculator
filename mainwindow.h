@@ -2,10 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <queue>
+#include <stack>
 #include <QTextStream>
 #include <QMessageBox>
-
+#include <iostream>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -25,7 +25,6 @@ private:
     Ui::MainWindow *ui;
     bool _equationEvaluated = false;
     bool _isDotPlacebale = true;
-    QString parseInput();
     void addNumber(QChar number);
     void addOperation(QChar op);
 public slots:
@@ -50,8 +49,10 @@ public slots:
 
 };
 
+void fixInput(QString &input);
+QString getAnswer(QString &input);
 bool isOperator(QChar op);
 int getPriority(QChar op);
 void raiseErrorWindow();
-QString getLastTokenStartedFromPos(QString &str, int pos);
+QString getLastTokenStartedFromPos(QString &str, int pos) noexcept;
 #endif // MAINWINDOW_H
