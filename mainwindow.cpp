@@ -71,8 +71,9 @@ void fixInput(QString &input)
             token.clear();
         }
     }
-    std::cout << input.toStdString() << std::endl;
 }
+
+
 
 QString getAnswer(QString &input)
 {
