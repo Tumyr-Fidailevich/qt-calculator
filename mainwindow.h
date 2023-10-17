@@ -15,37 +15,37 @@ const QString numbers = "0123456789";
 
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+	MainWindow(QWidget *parent = nullptr);
+	~MainWindow();
 
 private:
-    Ui::MainWindow *ui;
-    bool _equationEvaluated = false;
-    bool _isDotPlacebale = true;
-    void addNumber(QChar number);
-    void addOperation(QChar op);
+	Ui::MainWindow *ui;
+	bool _equationEvaluated = false;
+	bool _isDotPlacebale = true;
+	void addNumber(QChar number);
+	void addOperation(QChar op);
 public slots:
-    void add0();
-    void add1();
-    void add2();
-    void add3();
-    void add4();
-    void add5();
-    void add6();
-    void add7();
-    void add8();
-    void add9();
-    void add_dot();
-    void add_derivative();
-    void add_multiplication();
-    void add_minus();
-    void add_plus();
-    void deleteElement();
-    void deleteAll();
-    void evaluate();
+			void add0();
+	void add1();
+	void add2();
+	void add3();
+	void add4();
+	void add5();
+	void add6();
+	void add7();
+	void add8();
+	void add9();
+	void add_dot();
+	void add_derivative();
+	void add_multiplication();
+	void add_minus();
+	void add_plus();
+	void deleteElement();
+	void deleteAll();
+	void evaluate();
 
 };
 
